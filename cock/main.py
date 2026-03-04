@@ -182,10 +182,12 @@ def perform_cooking_cycle(templates):
             if not pos:
                 print(f"[ERROR] Не найден предмет {key}.")
                 return False
-            print(f"[INFO] Перетаскиваю {key}...")
-            human_like_drag(pos, target_slot_pos)
+            print(f"[INFO] Правый клик на {key}...")
+            human_like_move(*pos)  # Подводим мышь
+            time.sleep(random.uniform(*CONFIG["click_delay_range"]))  # Пауза перед кликом
+            pyautogui.rightClick()  # <--- ВОТ ТВОЙ ПРАВЫЙ КЛИК!
             
-            # Разные задержки для разных предметов
+            # Разные задержки (как было)
             if "knife" in key or "corolla" in key:
                 delay = random.uniform(0.05, 0.1)
             else:
@@ -201,7 +203,7 @@ def perform_cooking_cycle(templates):
     human_like_move(*cook_pos)
     pyautogui.click()
     return True
-
+    
 # ==============================================================================
 # Главный цикл
 # ==============================================================================
